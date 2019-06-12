@@ -6,7 +6,7 @@ Go语言实现的简单HTTP服务端
 
 * Ubuntu 18.04
 * Go 1.12.5
-* PostgreSQL 10
+* PostgreSQL 9.5
 
 ## Dependencies
 
