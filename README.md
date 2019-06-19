@@ -8,6 +8,10 @@ Go语言实现的简单HTTP服务端
 * Go 1.12.5
 * PostgreSQL 9.5
 
+## Run
+
+`go run main.go`
+
 ## Dependencies
 
 [gin](https://github.com/gin-gonic/gin)
