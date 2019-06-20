@@ -25,13 +25,11 @@ func sync(c *gin.Context) {
     }
     localInsert, localUpdate, localDelete, remoteUpdate, remoteInsert := service.Sync(localItems)
     c.JSON(200, gin.H{
-        "result": gin.H{
-            "localInsert": localInsert,
-            "localUpdate": localUpdate,
-            "localDelete": localDelete,
-            "remoteUpdate": remoteUpdate,
-            "remoteInsert": remoteInsert,
-        },
+        "localInsert": localInsert,
+        "localUpdate": localUpdate,
+        "localDelete": localDelete,
+        "remoteUpdate": remoteUpdate,
+        "remoteInsert": remoteInsert,
     })
 }
  
