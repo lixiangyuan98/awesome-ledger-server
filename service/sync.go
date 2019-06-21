@@ -33,8 +33,6 @@ func Sync(localItems []*bean.Item) (localInsert, localUpdate []*bean.Item,
                 // 删除远程记录
                 itemHelper.Delete(selectedItem)
             } else {
-                println(item.UpdatedAt.Unix())
-                println(selectedItem.UpdatedAt.Unix())
                 if item.UpdatedAt.Unix() < selectedItem.UpdatedAt.Unix() {
                     // 更新本地记录
                     localUpdate = append(localUpdate, selectedItem)
@@ -65,12 +63,15 @@ func Sync(localItems []*bean.Item) (localInsert, localUpdate []*bean.Item,
 }
 
 // Insert 将新条目加入服务端
-func Insert(localItems []*bean.Item) {
+func Insert(localItems []*bean.Item) (deletedItems []*string) {
     itemHelper := helper.GetItemHelper()
     for _, item := range localItems {
         item.ID = 0     // 避免主键冲突
-        itemHelper.Create(item)
+        if err:= itemHelper.Create(item); err != nil {
+            deletedItems = append(deletedItems, &item.UUID)
+        }
     }
+    return
 }
 
 // Update 将服务端的条目更新

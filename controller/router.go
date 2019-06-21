@@ -57,8 +57,10 @@ func insert(c *gin.Context) {
     for _, item := range localItems.Data {
         fmt.Println(item)
     }
-    service.Insert(localItems.Data)
-    c.JSON(200, nil)
+    localDelete := service.Insert(localItems.Data)
+    c.JSON(200, gin.H{
+        "localDelete": localDelete,
+    })
 }
 
 // update 更新服务端的条目

@@ -8,7 +8,7 @@ import (
 // Item 账单条目的实体类
 type Item struct {
     gorm.Model   
-    UUID string      `gorm:"type:uuid;not null"`
+    UUID string      `gorm:"type:uuid;unique;not null"`
     Date time.Time   `gorm:"type:timestamp;not null"`
     ItemType string  `gorm:"type:varchar(32);not null"`
     ItemKind string  `gorm:"type:varchar(32);not null"`
