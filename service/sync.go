@@ -33,10 +33,12 @@ func Sync(localItems []*bean.Item) (localInsert, localUpdate []*bean.Item,
                 // 删除远程记录
                 itemHelper.Delete(selectedItem)
             } else {
-                if item.UpdatedAt.Second() < selectedItem.UpdatedAt.Second() {
+                println(item.UpdatedAt.Unix())
+                println(selectedItem.UpdatedAt.Unix())
+                if item.UpdatedAt.Unix() < selectedItem.UpdatedAt.Unix() {
                     // 更新本地记录
                     localUpdate = append(localUpdate, selectedItem)
-                } else {
+                } else if item.UpdatedAt.Unix() > selectedItem.UpdatedAt.Unix() {
                     // 更新远程记录
                     remoteUpdate = append(remoteUpdate, &item.UUID)
                 }
