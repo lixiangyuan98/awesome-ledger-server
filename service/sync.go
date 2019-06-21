@@ -22,6 +22,9 @@ func Sync(localItems []*bean.Item) (localInsert, localUpdate []*bean.Item,
             if item.DeletedAt == nil {
                 // 添加远程记录
                 remoteInsert = append(remoteInsert, &item.UUID)
+            } else {
+                // 删除本地记录
+                localDelete = append(localDelete, &item.UUID)
             }
         } else {
             if item.DeletedAt != nil {
@@ -30,7 +33,7 @@ func Sync(localItems []*bean.Item) (localInsert, localUpdate []*bean.Item,
                 // 删除远程记录
                 itemHelper.Delete(selectedItem)
             } else {
-                if item.UpdatedAt.Before(selectedItem.UpdatedAt) {
+                if item.UpdatedAt.Second() < selectedItem.UpdatedAt.Second() {
                     // 更新本地记录
                     localUpdate = append(localUpdate, selectedItem)
                 } else {
