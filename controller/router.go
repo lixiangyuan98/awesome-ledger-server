@@ -4,7 +4,6 @@ import (
     "github.com/gin-gonic/gin"
     "../bean"
     "../service"
-    "fmt"
 )
 
 // Route 对所有URL进行路由
@@ -26,12 +25,8 @@ type itemsRequest struct {
 func sync(c *gin.Context) {
     var localItems itemsRequest
     if err := c.ShouldBindJSON(&localItems); err != nil {
-        fmt.Println(err)
         c.JSON(400, gin.H{"message": "Invalid Arguments"})
         return
-    }
-    for _, item := range localItems.Data {
-        fmt.Println(item)
     }
     localInsert, localUpdate, localDelete, remoteUpdate, remoteInsert := service.Sync(localItems.Data)
     c.JSON(200, gin.H{
@@ -54,9 +49,6 @@ func insert(c *gin.Context) {
         c.JSON(400, gin.H{"message": "Invalid Arguments"})
         return
     }
-    for _, item := range localItems.Data {
-        fmt.Println(item)
-    }
     localDelete := service.Insert(localItems.Data)
     c.JSON(200, gin.H{
         "localDelete": localDelete,
@@ -73,9 +65,6 @@ func update(c *gin.Context) {
     if err := c.ShouldBindJSON(&localItems); err != nil {
         c.JSON(400, gin.H{"message": "Invalid Arguments"})
         return
-    }
-    for _, item := range localItems.Data {
-        fmt.Println(item)
     }
     service.Update(localItems.Data)
     c.JSON(200, nil)
